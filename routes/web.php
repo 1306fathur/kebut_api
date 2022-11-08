@@ -22,54 +22,54 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-$router->get('/payment_online/{id_transaksi}', function ($id_transaksi)  {
-	$tgl = date('Y-m-d H:i:s');
-	$base64 = base64_decode($id_transaksi);
-	
-	$vowels = array("k", "e", "b", "u", "t", "K","E","B","U","T");
-	$_id_transaksi = str_replace($vowels,"",$base64);
-	DB::connection()->enableQueryLog();
-	$where = array('transaksi.status' => 1, 'id_transaksi' => $_id_transaksi);
-	$data = DB::table('transaksi')->select('transaksi.*','members.nama as nama_member',
-                'members.email',
-                'members.phone as phone_member')->where($where)->leftJoin('members', 'members.id_member', '=', 'transaksi.id_member')->first();
-	
-	$id_transaksi = $data->id_transaksi;
-	$PaymentId = (int)$data->payment_id > 0 ? (int)$data->payment_id : 1;
-	$tgl_test	 = date("Y-m-d", strtotime($data->created_at));
-    $ttl_price = $data->ttl_biaya;    
-	$merchant_code = env('MERCHANT_CODE');
-	$merchant_key = env('MERCHANT_KEY');
+$router->get('/payment_online/{id_transaksi}', function ($id_transaksi) {
+    $tgl = date('Y-m-d H:i:s');
+    $base64 = base64_decode($id_transaksi);
+
+    $vowels = array("k", "e", "b", "u", "t", "K", "E", "B", "U", "T");
+    $_id_transaksi = str_replace($vowels, "", $base64);
+    DB::connection()->enableQueryLog();
+    $where = array('transaksi.status' => 1, 'id_transaksi' => $_id_transaksi);
+    $data = DB::table('transaksi')->select('transaksi.*', 'members.nama as nama_member',
+        'members.email',
+        'members.phone as phone_member')->where($where)->leftJoin('members', 'members.id_member', '=', 'transaksi.id_member')->first();
+
+    $id_transaksi = $data->id_transaksi;
+    $PaymentId = (int)$data->payment_id > 0 ? (int)$data->payment_id : 1;
+    $tgl_test = date("Y-m-d", strtotime($data->created_at));
+    $ttl_price = $data->ttl_biaya;
+    $merchant_code = env('MERCHANT_CODE');
+    $merchant_key = env('MERCHANT_KEY');
     $currency = 'IDR';
-	$prodDesc = '';
-	$service_name = $data->nama_cargo;
-	$prodDesc = "Booking ".$service_name." ".$tgl_test." #".$id_transaksi;
-	
-	$name = $data->nama_member;
-	$email = $data->email;
-	$contact = $data->phone_member;
-	$signature = $data->signature;
-	$remark = 'Payment '.$id_transaksi;
-	$lang = 'UTF-8';
-	$res = array();
-	$res = array(
-		'merchantCode'	=> $merchant_code,  
-		'paymentId' 	=> $PaymentId,
-		'id_transaksi' 	=> $id_transaksi,
-		'refno' 		=> $id_transaksi,
-		'amount' 		=> $ttl_price.'00',
-		'currency' 		=> $currency,
-		'prodDesc' 		=> $prodDesc,
-		'userName' 		=> $name,
-		'userEmail' 	=> $email,
-		'userContact' 	=> $contact,
-		'remark' 		=> $remark,
-		'lang' 			=> $lang,
-		'signature' 	=> $signature,
-		'url_payment' 	=> env('URL_IPAY88'),
-		'ResponseURL' 	=> env('PUBLIC_URL').'/ipay_redirect',
-		'BackendURL' 	=> env('PUBLIC_URL').'/ipay_notif',
-	);	
+    $prodDesc = '';
+    $service_name = $data->nama_cargo;
+    $prodDesc = "Booking " . $service_name . " " . $tgl_test . " #" . $id_transaksi;
+
+    $name = $data->nama_member;
+    $email = $data->email;
+    $contact = $data->phone_member;
+    $signature = $data->signature;
+    $remark = 'Payment ' . $id_transaksi;
+    $lang = 'UTF-8';
+    $res = array();
+    $res = array(
+        'merchantCode' => $merchant_code,
+        'paymentId' => $PaymentId,
+        'id_transaksi' => $id_transaksi,
+        'refno' => $id_transaksi,
+        'amount' => $ttl_price . '00',
+        'currency' => $currency,
+        'prodDesc' => $prodDesc,
+        'userName' => $name,
+        'userEmail' => $email,
+        'userContact' => $contact,
+        'remark' => $remark,
+        'lang' => $lang,
+        'signature' => $signature,
+        'url_payment' => env('URL_IPAY88'),
+        'ResponseURL' => env('PUBLIC_URL') . '/ipay_redirect',
+        'BackendURL' => env('PUBLIC_URL') . '/ipay_notif',
+    );
     return view('greeting', $res);
 });
 
@@ -99,6 +99,8 @@ $router->post('/login_driver', 'DriverController@login');
 $router->post('/forgot_pass_driver', 'DriverController@forgot_pass');
 $router->post('/status_work', 'DriverController@status_work');
 $router->post('/ambil_job', 'DriverController@ambil_job');
+$router->post('/barang_diambil', 'DriverController@barang_diambil');
+$router->post('/barang_diserahkan', 'DriverController@barang_diserahkan');
 $router->post('/history_trans_driver', 'DriverController@history_transaksi');
 
 $router->post('/master_data', 'MasterController@index');
@@ -153,7 +155,6 @@ $router->post('/kelurahan', 'KelController@index');
 $router->post('/simpan_kel', 'KelController@store');
 $router->post('/del_kel', 'KelController@proses_delete');
 
-
 $router->post('/members', 'MemberController@index');
 $router->post('/set_stts_member', 'MemberController@update_sttts');
 $router->post('/history_transaksi', 'MemberController@history_transaksi');
@@ -169,7 +170,7 @@ $router->post('/register_member', 'MemberController@reg');
 
 $router->post('/mapping_price', 'MappingAreaController@mapping_price');
 $router->post('/mapping_area', 'MappingAreaController@index');
-$router->post('/mapping_price', 'MappingAreaController@mapping_price');
+$router->post('/set_mapping', 'MappingAreaController@store');
 $router->post('/set_price', 'MappingAreaController@store_price');
 $router->post('/get_id_kelurahan', 'MappingAreaController@get_id_kelurahan');
 $router->post('/get_ongkirs', 'MappingAreaController@get_ongkirs');

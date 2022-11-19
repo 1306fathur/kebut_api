@@ -90,6 +90,49 @@ class DriverController extends Controller
         return response($result);
     }
 
+    public function activation(Request $request)
+    {
+        $id_driver = $request->id_driver;
+        $status = $request->status;
+
+        $find = DB::table('driver')->where('id_driver', $id_driver)->first();
+
+        if ($find) {
+            $update = DB::table('driver')->where('id_driver', $id_driver)->update([
+                'status' => $status
+            ]);
+            if ($update) {
+                if ($status == 1) {
+                    $result = array(
+                        'err_code' => '00',
+                        'err_msg' => 'ok',
+                        'data' => $find
+                    );
+                } else if ($status == 2) {
+                    $result = array(
+                        'err_code' => '00',
+                        'err_msg' => 'Driver account rejected',
+                        'data' => $find
+                    );
+                }
+            } else {
+                $result = array(
+                    'err_code' => '04',
+                    'err_msg' => 'failed',
+                    'data' => null
+                );
+            }
+        } else {
+            $result = array(
+                'err_code' => '04',
+                'err_msg' => 'data not found',
+                'data' => null
+            );
+        }
+
+        return response($result);
+    }
+
     function reg(Request $request)
     {
         $ptn = "/^0/";
@@ -477,14 +520,14 @@ class DriverController extends Controller
                     'data' => null
                 );
             }
-            // if ((int)$data->status != 1) {
-            // $result = array();
-            // $result = array(
-            // 'err_code'  => '05',
-            // 'err_msg'   => 'Status inactive',
-            // 'data'      => null
-            // );
-            // }
+            if ((int)$data->status != 1) {
+                $result = array();
+                $result = array(
+                    'err_code'  => '05',
+                    'err_msg'   => 'Status inactive',
+                    'data'      => $data
+                );
+            }
             // if ((int)$data->verify_phone != 1) {
             // $result = array();
             // $result = array(
@@ -500,8 +543,8 @@ class DriverController extends Controller
     function change_pass(Request $request)
     {
         $tgl = date('Y-m-d H:i:s');
-        $id_member = (int)$request->id_member;
-        Helper::last_login($id_member);
+        $id_driver = (int)$request->id_driver;
+        Helper::last_login($id_driver);
         $new_pass = $request->new_pass;
         $old_pass = $request->old_pass;
         $result = array();
@@ -523,8 +566,8 @@ class DriverController extends Controller
             return response($result);
             return false;
         }
-        if ($id_member > 0) {
-            $data = Members::where('id_member', $id_member)->first();
+        if ($id_driver > 0) {
+            $data = DB::table('driver')->where('id_driver', $id_driver)->first();
             $password = Crypt::decryptString($data->pass);
             $old_pass = strtolower($old_pass);
             if ($password != $old_pass) {
@@ -546,10 +589,11 @@ class DriverController extends Controller
                 return response($result);
                 return false;
             }
-            $data->pass = Crypt::encryptString($new_pass);
-            $data->updated_at = $tgl;
-            $data->updated_by = $id_member;
-            $data->save();
+            $update_data = [
+                'pass' => Crypt::encryptString($new_pass),
+                'updated_at' => $tgl,
+            ];
+            DB::table('driver')->where('id_driver', $id_driver)->update($update_data);
             $result = array(
                 'err_code' => '00',
                 'err_msg' => 'ok',
@@ -558,8 +602,8 @@ class DriverController extends Controller
         } else {
             $result = array(
                 'err_code' => '06',
-                'err_msg' => 'id_member required',
-                'data' => $id_member
+                'err_msg' => 'id_driver required',
+                'data' => $id_driver
             );
         }
         return response($result);
@@ -640,7 +684,7 @@ class DriverController extends Controller
             'data' => $id_driver
         );
         if ((int)$count > 0) {
-            DB::table('kota')->where($where)->update(array('status_work' => $status_work));
+            DB::table('driver')->where($where)->update(array('status_work' => $status_work));
             $data = DB::table('driver')->where($where)->first();
             $result = array(
                 'err_code' => '00',

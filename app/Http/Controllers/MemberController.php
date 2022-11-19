@@ -58,11 +58,11 @@ class MemberController extends Controller
         );
         if ((int)$count > 0) {
             foreach ($data as $d) {
-				$path_img = null;
+                $path_img = null;
                 $path_img  = !empty($d->photo) ? env('PUBLIC_URL') . '/uploads/members/' . $d->photo : null;
-				unset($d->photo);
-				// unset($d->status);
-				$d->photo = $path_img;
+                unset($d->photo);
+                // unset($d->status);
+                $d->photo = $path_img;
                 $_data[] = $d;
             }
 
@@ -91,13 +91,13 @@ class MemberController extends Controller
             Helper::last_login($id_member);
             $data = Members::where($where)->first();
             $photo = !empty($data->photo) ? env('PUBLIC_URL') . '/uploads/members/' . $data->photo : '';
-			// if($id_token > 0){				
-				// $fcm_token = DB::table('fcm_token')->where(array('id_token_fcm' => $id_token))->first();
-			// }
-			
-			// $data->id_token_fcm = $id_token;
-			// $data->token_fcm = isset($fcm_token->token_fcm) ? $fcm_token->token_fcm : '';
-            $data->photo = $photo;            
+            // if($id_token > 0){				
+            // $fcm_token = DB::table('fcm_token')->where(array('id_token_fcm' => $id_token))->first();
+            // }
+
+            // $data->id_token_fcm = $id_token;
+            // $data->token_fcm = isset($fcm_token->token_fcm) ? $fcm_token->token_fcm : '';
+            $data->photo = $photo;
             $result = array(
                 'err_code'  => '00',
                 'err_msg'   => 'ok',
@@ -109,7 +109,7 @@ class MemberController extends Controller
 
     function reg(Request $request)
     {
-		$ptn = "/^0/";
+        $ptn = "/^0/";
         $rpltxt = "62";
         $tgl = date('Y-m-d H:i:s');
         $data = new Members();
@@ -117,8 +117,8 @@ class MemberController extends Controller
         $data->phone = isset($request->phone) ? preg_replace($ptn, $rpltxt, $request->phone) : '';
         $data->nama = $request->nama;
         $data->perusahaan = isset($request->perusahaan) ? $request->perusahaan : '';
-		$verify_code = rand(100000, 999999);
-		$data->status = 0;
+        $verify_code = rand(100000, 999999);
+        $data->status = 0;
         $data->pass = Crypt::encryptString(strtolower($request->pass));
         $data->created_at = $tgl;
         $data->updated_at = $tgl;
@@ -129,7 +129,7 @@ class MemberController extends Controller
             'err_msg'   => 'not found',
             'data'      => null
         );
-		
+
         if (empty($data->email)) {
             $result = array(
                 'err_code'  => '06',
@@ -159,7 +159,7 @@ class MemberController extends Controller
             return false;
         }
         $count = 0;
-		
+
         $where = ['deleted_at' => null, 'email' => $data->email];
         $count = Members::where($where)->count();
         if ($count > 0) {
@@ -185,23 +185,23 @@ class MemberController extends Controller
 
         $save = $data->save();
         // if ($save) {
-            // $setting = DB::table('setting')->get()->toArray();
-            // $out = array();
-            // if (!empty($setting)) {
-                // foreach ($setting as $val) {
-                    // $out[$val->setting_key] = $val->setting_val;
-                // }
-            // }
-			// $id_member = Crypt::encryptString($data->id_member);
-			// $verify_link = '';
-			// $verify_link = env('APP_URL') . '/api_mekar/verify_email/'.$id_member;
-            // $content_member = $out['content_reg'];
-            // $content = str_replace('[#name#]', $data->nama, $content_member);
-            // $content = str_replace('[#verify_link#]', $verify_link, $content);
-            // $data->content = $content;
-            // Mail::send([], ['users' => $data], function ($message) use ($data) {
-                // $message->to($data->email, $data->nama)->subject('Register')->setBody($data->content, 'text/html');
-            // });
+        // $setting = DB::table('setting')->get()->toArray();
+        // $out = array();
+        // if (!empty($setting)) {
+        // foreach ($setting as $val) {
+        // $out[$val->setting_key] = $val->setting_val;
+        // }
+        // }
+        // $id_member = Crypt::encryptString($data->id_member);
+        // $verify_link = '';
+        // $verify_link = env('APP_URL') . '/api_mekar/verify_email/'.$id_member;
+        // $content_member = $out['content_reg'];
+        // $content = str_replace('[#name#]', $data->nama, $content_member);
+        // $content = str_replace('[#verify_link#]', $verify_link, $content);
+        // $data->content = $content;
+        // Mail::send([], ['users' => $data], function ($message) use ($data) {
+        // $message->to($data->email, $data->nama)->subject('Register')->setBody($data->content, 'text/html');
+        // });
         // }
         $result = array(
             'err_code'  => '00',
@@ -210,8 +210,8 @@ class MemberController extends Controller
         );
         return response($result);
     }
-	
-	function verify_phone(Request $request)
+
+    function verify_phone(Request $request)
     {
         $tgl = date('Y-m-d H:i:s');
         $id_member = (int)$request->id_member;
@@ -234,80 +234,84 @@ class MemberController extends Controller
             return response($result);
             return false;
         }
-        $data = DB::table('members')->where(array('id_member'=>$id_member))->first();
+        $data = DB::table('members')->where(array('id_member' => $id_member))->first();
         if ($kode == (int)$data->verify_phone) {
             $dt_upd = array(
-				'verify_phone'	=> 1,
-				'status'		=> 0,
-				'updated_at'	=> $tgl,
-				'updated_by'	=> $id_member,
-			);
+                'verify_phone'    => 1,
+                'status'        => 1,
+                'updated_at'    => $tgl,
+                'updated_by'    => $id_member,
+            );
             DB::table('members')->where('id_member', $id_member)->update($dt_upd);
-			unset($data->verify_phone);
-			unset($data->updated_at);
-			unset($data->updated_by);
-			$data->verify_phone = 1;
-			$data->updated_at = $tgl;
-			$data->updated_by = $id_member;
-			$result = array(
-				'err_code'      => '00',
-				'err_msg'       => 'ok',
-				'data'          => $data
-			);
-        }else{
-			$result = array(
+            unset($data->verify_phone);
+            unset($data->updated_at);
+            unset($data->updated_by);
+            $data->verify_phone = 1;
+            $data->updated_at = $tgl;
+            $data->updated_by = $id_member;
+            $result = array(
+                'err_code'      => '00',
+                'err_msg'       => 'ok',
+                'data'          => $data
+            );
+        } else {
+            $result = array(
                 'err_code'  => '02',
                 'err_msg'   => 'kode not match',
                 'data'      => $data->verify_phone
             );
-		}       
-        
+        }
+
         return response($result);
     }
-	
-	
-	function resend_code_phone(Request $request)
+
+
+    function resend_code_phone(Request $request)
     {
+        $verify_code = rand(100000, 999999);
         $tgl = date('Y-m-d H:i:s');
-		$ptn = "/^0/";
+        $ptn = "/^0/";
         $rpltxt = "62";
-        $phone = isset($request->phone) ? preg_replace($ptn, $rpltxt, $request->phone) : '';		
-        $count = DB::table('members')->where(array('phone'=>$phone))->count();
-		$result = array();
+        $phone = isset($request->phone) ? preg_replace($ptn, $rpltxt, $request->phone) : '';
+        $count = DB::table('members')->where(array('phone' => $phone))->count();
+        $result = array();
         $result = array(
             'err_code'      => '04',
             'err_msg'       => 'data not found',
             'data'          => null
         );
-		if((int)$count > 0){
-			$data = DB::table('members')->where(array('phone'=>$phone))->first();
-			if ((int)$data->verify_phone == 1) {
-				$result = array(
-					'err_code'  => '03',
-					'err_msg'   => 'phone sudah terverifikasi sebelumnya',
-					'data'      => $data
-				);
-				return response($result);
-				return false;
-			}
-			if (empty($data->verify_phone)) {
-				$verify_code = rand(100000, 999999);
-				$dt_upd = array(
-					'verify_phone'	=> $verify_code,
-					'updated_at'	=> $tgl,
-					'updated_by'	=> $id_user,
-				); 
-				DB::table('members')->where('id_member', $id_user)->update($dt_upd);
-				unset($data->verify_phone);
-				$data->verify_phone = $verify_code;
-			}
-			
-			$result = array(
-				'err_code'      => '00',
-				'err_msg'       => 'ok',
-				'data'          => $data
-			);
-		}
+        if ((int)$count > 0) {
+            $data = DB::table('members')->where(array('phone' => $phone))->first();
+            //update
+            DB::table('members')->where('id_member', $data->id_member)->update(array('verify_phone' => $verify_code));
+
+            if ((int)$data->verify_phone == 1) {
+                $result = array(
+                    'err_code'  => '03',
+                    'err_msg'   => 'phone sudah terverifikasi sebelumnya',
+                    'data'      => $data
+                );
+                return response($result);
+                return false;
+            }
+            if (empty($data->verify_phone)) {
+                $verify_code = rand(100000, 999999);
+                $dt_upd = array(
+                    'verify_phone'    => $verify_code,
+                    'updated_at'    => $tgl,
+                    'updated_by'    => $id_user,
+                );
+                DB::table('members')->where('id_member', $id_user)->update($dt_upd);
+                unset($data->verify_phone);
+                $data->verify_phone = $verify_code;
+            }
+
+            $result = array(
+                'err_code'      => '00',
+                'err_msg'       => 'ok',
+                'data'          => $data
+            );
+        }
         return response($result);
     }
 
@@ -319,8 +323,8 @@ class MemberController extends Controller
         $result = array();
         if ($id_member > 0) {
             $data = Members::where('id_member', $id_member)->first();
-            $data->nama = $request->nama;           
-            $data->perusahaan = $request->perusahaan;           
+            $data->nama = $request->nama;
+            $data->perusahaan = $request->perusahaan;
             $data->updated_at = $tgl;
             $data->updated_by = $id_member;
             $data->save();
@@ -343,7 +347,7 @@ class MemberController extends Controller
     {
         $count = 0;
         $email = $request->email;
-       
+
         $pass = strtolower($request->pass);
         $result = array();
         if (empty($email)) {
@@ -364,7 +368,7 @@ class MemberController extends Controller
             return response($result);
             return false;
         }
-		 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $result = array(
                 'err_code'    => '06',
                 'err_msg'    => 'email invalid format',
@@ -373,7 +377,7 @@ class MemberController extends Controller
             return response($result);
             return false;
         }
-        $where = ['deleted_at' => null, 'email' => $email];        
+        $where = ['deleted_at' => null, 'email' => $email];
 
         $count = Members::where($where)->count();
         $result = array(
@@ -385,11 +389,11 @@ class MemberController extends Controller
             $data = Members::where($where)->first();
             $password = Crypt::decryptString($data->pass);
             if ($pass == $password) {
-				$photo = !empty($data->photo) ? env('PUBLIC_URL') . '/uploads/members/' . $data->photo : '';
+                $photo = !empty($data->photo) ? env('PUBLIC_URL') . '/uploads/members/' . $data->photo : '';
                 unset($data->pass);
                 unset($data->photo);
-                Helper::last_login($data->id_member);                
-				$data->photo = $photo;
+                Helper::last_login($data->id_member);
+                $data->photo = $photo;
                 $result = array(
                     'err_code'  => '00',
                     'err_msg'   => 'ok',
@@ -410,7 +414,7 @@ class MemberController extends Controller
                     'data'      => null
                 );
             }
-			if ((int)$data->verify_phone != 1) {
+            if ((int)$data->verify_phone != 1) {
                 $result = array();
                 $result = array(
                     'err_code'  => '05',
@@ -555,7 +559,7 @@ class MemberController extends Controller
             'data'          => $data,
             'fileSize'      => $fileSize,
             'extension'     => $extension,
-            'imageName'     => env('PUBLIC_URL') . '/uploads/members/' .$imageName,
+            'imageName'     => env('PUBLIC_URL') . '/uploads/members/' . $imageName,
         );
         Helper::last_login($id_member);
         return response($result);
@@ -570,13 +574,13 @@ class MemberController extends Controller
         if (!empty($email)) {
             $data = Members::whereRaw("LOWER(email) = '" . strtolower($email) . "'")->first();
             // if ((int)$data->verify_email <= 0) {
-                // $result = array(
-                    // 'err_code'  => '07',
-                    // 'err_msg'   => 'email belum terverifikasi',
-                    // 'data'      => null
-                // );
-                // return response($result);
-                // return false;
+            // $result = array(
+            // 'err_code'  => '07',
+            // 'err_msg'   => 'email belum terverifikasi',
+            // 'data'      => null
+            // );
+            // return response($result);
+            // return false;
             // }
             $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
             $pass = array(); //remember to declare $pass as an array
@@ -618,8 +622,9 @@ class MemberController extends Controller
         }
         return response($result);
     }
-	
-	function update_sttts(Request $request){
+
+    function update_sttts(Request $request)
+    {
         $tgl = date('Y-m-d H:i:s');
         $id_member = (int)$request->id_member > 0 ? (int)$request->id_member : 0;
         $status = (int)$request->status > 0 ? (int)$request->status : 2;
@@ -636,65 +641,65 @@ class MemberController extends Controller
         );
         return response($result);
     }
-	
-	// function verify_email($id)
+
+    // function verify_email($id)
     // {
-        // $tgl = date('Y-m-d H:i:s');
-        // $id_member = Crypt::decryptString($id);
-		
-        // $id_member = (int)$id_member;
-        // $data = Members::where('id_member', $id_member)->first();
-		// Log::info($data);
-        // if ((int)$data->status == 1) {
-            // $result = array(
-                // 'err_code'  => '03',
-                // 'err_msg'   => 'email sudah terverifikasi sebelumnya',
-                // 'data'      => null
-            // );
-            // return response($result);
-            // return false;
-        // }
-        // $data->status = 1;
-        // $data->updated_at = $tgl;
-        // $data->updated_by = $id_member;
-        // $data->save();
-        // $result = array();
-        // $result = array(
-            // 'err_code'      => '00',
-            // 'err_msg'       => 'ok',
-            // 'data'          => $data
-        // );
-        // return response($result);
+    // $tgl = date('Y-m-d H:i:s');
+    // $id_member = Crypt::decryptString($id);
+
+    // $id_member = (int)$id_member;
+    // $data = Members::where('id_member', $id_member)->first();
+    // Log::info($data);
+    // if ((int)$data->status == 1) {
+    // $result = array(
+    // 'err_code'  => '03',
+    // 'err_msg'   => 'email sudah terverifikasi sebelumnya',
+    // 'data'      => null
+    // );
+    // return response($result);
+    // return false;
     // }
-	
-	function history_transaksi(Request $request)
+    // $data->status = 1;
+    // $data->updated_at = $tgl;
+    // $data->updated_by = $id_member;
+    // $data->save();
+    // $result = array();
+    // $result = array(
+    // 'err_code'      => '00',
+    // 'err_msg'       => 'ok',
+    // 'data'          => $data
+    // );
+    // return response($result);
+    // }
+
+    function history_transaksi(Request $request)
     {
         $tgl = Carbon::now();
         $data = array();
         $result = array();
         $id_member = (int)$request->id_member > 0 ? Helper::last_login((int)$request->id_member) : 0;
-		// Helper::auto_reject_payment($id_member);
-        $status = (int)$request->status > 0 ? (int)$request->status :0;
-		$sort_column = !empty($request->sort_column) ? $request->sort_column : 'id_transaksi';
+        // Helper::auto_reject_payment($id_member);
+        $status = (int)$request->status > 0 ? (int)$request->status : 0;
+        $sort_column = !empty($request->sort_column) ? $request->sort_column : 'id_transaksi';
         $sort_order = !empty($request->sort_order) ? $request->sort_order : 'DESC';
-        $column_int = array("id_transaksi");		
+        $column_int = array("id_transaksi");
         if (in_array($sort_column, $column_int)) $sort_column = "ABS($sort_column)";
         $sort_column = $sort_column . " " . $sort_order;
         $where = array('transaksi.id_member' => $id_member);
         if ($status > 0) $where += array('transaksi.status' => (int)$status);
         $count = 0;
         $count = DB::table('transaksi')->where($where)->count();
-		$_data = DB::table('transaksi')->select(
-                'transaksi.*',
-				'members.nama as nama_member',
-				'members.email',
-				'members.phone as phone_member',  
-				'driver.nama as nama_driver',
-				'driver.email as email_driver',
-				'driver.phone as phone_driver',               
-            )
+        $_data = DB::table('transaksi')->select(
+            'transaksi.*',
+            'members.nama as nama_member',
+            'members.email',
+            'members.phone as phone_member',
+            'driver.nama as nama_driver',
+            'driver.email as email_driver',
+            'driver.phone as phone_driver',
+        )
             ->where($where)->leftJoin('members', 'members.id_member', '=', 'transaksi.id_member')
-			->leftJoin('driver', 'driver.id_driver', '=', 'transaksi.id_driver')
+            ->leftJoin('driver', 'driver.id_driver', '=', 'transaksi.id_driver')
             ->orderByRaw($sort_column)->get();
         $result = array(
             'err_code'      => '04',
@@ -702,17 +707,17 @@ class MemberController extends Controller
             'total_data'    => $count,
             'data'          => null
         );
-		if ($count > 0) {
-			
+        if ($count > 0) {
+
             foreach ($_data as $d) {
                 $status = $d->status;
                 $payment = $d->payment;
-                
-                unset($d->url_payment);               
-                unset($d->process_by);               
-                unset($d->completed_by);                 
-                unset($d->status_payment_by);                 
-							
+
+                unset($d->url_payment);
+                unset($d->process_by);
+                unset($d->completed_by);
+                unset($d->status_payment_by);
+
                 $data[] = $d;
             }
             $result = array(
@@ -723,14 +728,15 @@ class MemberController extends Controller
             );
         }
         return response($result);
-	}
-	
-	function set_token_fcm(Request $request){
-		$tgl = date('Y-m-d H:i:s');
+    }
+
+    function set_token_fcm(Request $request)
+    {
+        $tgl = date('Y-m-d H:i:s');
         $id_member = (int)$request->id_member > 0 ? Helper::last_login((int)$request->id_member) : 0;
         $id = (int)$request->id_token_fcm  > 0 ? (int)$request->id_token_fcm  : 0;
-		$token_fcm = $request->token_fcm;
-		if ($id_member <= 0) {
+        $token_fcm = $request->token_fcm;
+        if ($id_member <= 0) {
             $result = array(
                 'err_code'  => '06',
                 'err_msg'   => 'id_member required',
@@ -739,21 +745,21 @@ class MemberController extends Controller
             return response($result);
             return false;
         }
-		$data = array(
-			'id_member'	=> $id_member,
-			'token_fcm'	=> $token_fcm
-		);
-		if ($id > 0) {			
+        $data = array(
+            'id_member'    => $id_member,
+            'token_fcm'    => $token_fcm
+        );
+        if ($id > 0) {
             $data += array("updated_at" => $tgl);
             DB::table('fcm_token')->where('id_token_fcm', $id)->update($data);
         } else {
             $data += array("created_at" => $tgl);
             $id = DB::table('fcm_token')->insertGetId($data, "id_token_fcm");
         }
-		$result = array();
+        $result = array();
         if ($id > 0) {
             $data += array('id_token_fcm ' => $id);
-           
+
             $result = array(
                 'err_code'  => '00',
                 'err_msg'   => 'ok',
@@ -767,22 +773,22 @@ class MemberController extends Controller
             );
         }
         return response($result);
-	}
-	
-	
-	function test_mail()
+    }
+
+
+    function test_mail()
     {
 
         Mail::raw('mail text', function ($message) {
             $message->to('hanssn88@gmail.com', 'CNI')->subject('Test Mail CNI');
         });
     }
-	
-	function test_wa(Request $request)
+
+    function test_wa(Request $request)
     {
-		$id = (int)$request->id_transaksi  > 0 ? (int)$request->id_transaksi  : 0;
-		$status = (int)$request->status > 0 ? (int)$request->status : 0;
-		$result = Helper::send_wa($id,$status);
+        $id = (int)$request->id_transaksi  > 0 ? (int)$request->id_transaksi  : 0;
+        $status = (int)$request->status > 0 ? (int)$request->status : 0;
+        $result = Helper::send_wa($id, $status);
         return response($result);
     }
 

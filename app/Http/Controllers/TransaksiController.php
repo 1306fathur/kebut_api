@@ -91,9 +91,7 @@ class TransaksiController extends Controller
             );
         }
         return response($result);
-
     }
-
 
     public function trans_available(Request $request)
     {
@@ -302,7 +300,6 @@ class TransaksiController extends Controller
                         return false;
                     }
                     $img_srt_jln[$i]->move($tujuan_upload, $imageName[$i]);
-
                 }
                 $b_add_bm = !empty($biaya_tambahan_bm) && isset($biaya_tambahan_bm[$i]) ? str_replace(',', '', $biaya_tambahan_bm[$i]) : 0;
                 $b_asuransi = !empty($biaya_asuransi) && isset($biaya_asuransi[$i]) ? str_replace(',', '', $biaya_asuransi[$i]) : 0;
@@ -502,5 +499,4 @@ class TransaksiController extends Controller
         );
         return response($result);
     }
-
 }

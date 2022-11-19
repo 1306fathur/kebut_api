@@ -1,0 +1,526 @@
+{
+	"info": {
+		"_postman_id": "ed8745e2-ce17-4647-ae9d-79fc5be5cb00",
+		"name": "Kebut Driver Apps",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "624374"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Tn.",
+							"type": "text"
+						},
+						{
+							"key": "no_npwp",
+							"value": "08136666666",
+							"type": "text"
+						},
+						{
+							"key": "no_ktp",
+							"value": "455667",
+							"type": "text"
+						},
+						{
+							"key": "nama",
+							"value": "test reg",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "09999",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "yansen@andtechnology.mobi",
+							"type": "text"
+						},
+						{
+							"key": "pass",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "alamat",
+							"value": "fgdg",
+							"type": "text"
+						},
+						{
+							"key": "id_kota",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "bank",
+							"value": "BCA",
+							"type": "text"
+						},
+						{
+							"key": "no_rek",
+							"value": "125556",
+							"type": "text"
+						},
+						{
+							"key": "nama_rek",
+							"value": "Yansen",
+							"type": "text"
+						},
+						{
+							"key": "no_pol",
+							"value": "B1234GG",
+							"type": "text"
+						},
+						{
+							"key": "merk_kendaraan",
+							"value": "Honda",
+							"type": "text"
+						},
+						{
+							"key": "tipe_kendaraan",
+							"value": "Beat",
+							"type": "text"
+						},
+						{
+							"key": "thn_kendaraan",
+							"value": "2018",
+							"type": "text"
+						},
+						{
+							"key": "nama_pemilik_kendaraan",
+							"value": "Hansen",
+							"type": "text"
+						},
+						{
+							"key": "img_ktp",
+							"type": "file",
+							"src": "/C:/Users/Yansen/Pictures/Baseus 100w/1.jpg"
+						},
+						{
+							"key": "img_npwp",
+							"type": "file",
+							"src": "/C:/Users/Yansen/Pictures/Baseus 100w/2.jpg"
+						},
+						{
+							"key": "img_buku_tabungan",
+							"type": "file",
+							"src": "/C:/Users/Yansen/Pictures/Baseus 100w/3.jpg"
+						},
+						{
+							"key": "img_profile",
+							"type": "file",
+							"src": "/C:/Users/Yansen/Pictures/Baseus 100w/4.jpg"
+						},
+						{
+							"key": "img_stnk",
+							"type": "file",
+							"src": "/C:/Users/Yansen/Pictures/Baseus 100w/5.jpg"
+						},
+						{
+							"key": "img_sim",
+							"type": "file",
+							"src": "/C:/Users/Yansen/Pictures/Baseus 100w/6.jpg"
+						},
+						{
+							"key": "img_kendaraan",
+							"type": "file",
+							"src": "/C:/Users/Yansen/Pictures/Aukey 74.5/AUKEY-74-5W-EU-UK-Plug-Quick-Charger-3-Port-USB-C-Wall-Charger-with-46W.jpg_Q90.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/register_driver",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"register_driver"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "yansen@andtechnology.mobi",
+							"type": "text"
+						},
+						{
+							"key": "pass",
+							"value": "ZmySthUW",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/login_driver",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"login_driver"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Profile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id_driver",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/detail_driver",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"detail_driver"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Forgot Password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "yansen@andtechnology.mobi",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/forgot_pass_driver",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"forgot_pass_driver"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FAQ Driver",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sort_order",
+							"value": "ASC",
+							"description": "DESC",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "sort_column",
+							"value": "question",
+							"description": "id_category",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/faq_driver",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"faq_driver"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FAQ Detail",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id_faq",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/faq_detail",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"faq_detail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set status work",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id_driver",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "status_work",
+							"value": "",
+							"description": "0 => Inactive,\n1 => Active",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/status_work",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"status_work"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transaksi Available",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "latitude",
+							"value": "-6.117202579023102",
+							"type": "text"
+						},
+						{
+							"key": "longitude",
+							"value": "106.78238942797437",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/trans_available",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"trans_available"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transaksi Detail",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id_transaksi",
+							"value": " 1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/transaksi_detail",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"transaksi_detail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ambil Kerjaan",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id_transaksi",
+							"value": " 1",
+							"type": "text"
+						},
+						{
+							"key": "id_driver",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/transaksi_detail",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"transaksi_detail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Barang diambil",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id_transaksi",
+							"value": " 1",
+							"type": "text"
+						},
+						{
+							"key": "id_driver",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "img",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/transaksi_detail",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"transaksi_detail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Barang diserahkan ke penerima",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id_transaksi",
+							"value": " 1",
+							"type": "text"
+						},
+						{
+							"key": "id_driver",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "img",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/barang_diserahkan",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"barang_diserahkan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "History Trans Driver",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id_driver",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/history_trans_driver",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"history_trans_driver"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

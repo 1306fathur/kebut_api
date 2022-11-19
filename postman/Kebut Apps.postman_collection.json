@@ -1,0 +1,1424 @@
+{
+	"info": {
+		"_postman_id": "506977e4-6a3e-47b8-913d-1602b330dbbf",
+		"name": "Kebut Apps",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1038311"
+	},
+	"item": [
+		{
+			"name": "Member",
+			"item": [
+				{
+					"name": "Register Member",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nik",
+									"value": "1233",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "08136666666",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "yansen@andtechnology.mobi",
+									"type": "text"
+								},
+								{
+									"key": "nama",
+									"value": "test reg",
+									"type": "text"
+								},
+								{
+									"key": "pass",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "perusahaan",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{_url}}/register_member",
+							"host": [
+								"{{_url}}"
+							],
+							"path": [
+								"register_member"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verifikasi Phone",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_member",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{_url}}/verify_phone_cust",
+							"host": [
+								"{{_url}}"
+							],
+							"path": [
+								"verify_phone_cust"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resend kode verifikasi",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phone",
+									"value": "0811111111",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{_url}}/resend_code_phone_cust",
+							"host": [
+								"{{_url}}"
+							],
+							"path": [
+								"resend_code_phone_cust"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_member",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{_url}}/profile_member",
+							"host": [
+								"{{_url}}"
+							],
+							"path": [
+								"profile_member"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "pass",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "bernardwi89@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{_url}}/login",
+							"host": [
+								"{{_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Member",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_member",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "nama",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "perusahaan",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{_url}}/edit",
+							"host": [
+								"{{_url}}"
+							],
+							"path": [
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Photo Member",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_member",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/C:/Users/Yansen/Pictures/Aukey 74.5/3.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{_url}}/upload_photo",
+							"host": [
+								"{{_url}}"
+							],
+							"path": [
+								"upload_photo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_member",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "new_pass",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "old_pass",
+									"value": "123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{_url}}/chg_pass",
+							"host": [
+								"{{_url}}"
+							],
+							"path": [
+								"chg_pass"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{_url}}/forgot_pass",
+							"host": [
+								"{{_url}}"
+							],
+							"path": [
+								"forgot_pass"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Area & Ongkir",
+			"item": [
+				{
+					"name": "Get Provinsi",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "per_page",
+									"value": "10",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "keyword",
+									"value": "test",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "page_number",
+									"value": "2",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "sort_order",
+									"value": "asc",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "sort_column",
+									"value": "name",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{_url}}/provinsi",
+							"host": [
+								"{{_url}}"
+							],
+							"path": [
+								"provinsi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get City",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "per_page",
+									"value": "10",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "keyword",
+									"value": "test",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "page_number",
+									"value": "2",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "sort_order",
+									"value": "asc",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "sort_column",
+									"value": "city_name",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "id_provinsi",
+									"value": "2",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{_url}}/city",
+							"host": [
+								"{{_url}}"
+							],
+							"path": [
+								"city"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Kecamatan",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "per_page",
+									"value": "10",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "keyword",
+									"value": "test",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "page_number",
+									"value": "2",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "sort_order",
+									"value": "asc",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "sort_column",
+									"value": "kec_name",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "id_city",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{_url}}/kecamatan",
+							"host": [
+								"{{_url}}"
+							],
+							"path": [
+								"kecamatan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Kelurahan",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "per_page",
+									"value": "10",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "keyword",
+									"value": "test",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "page_number",
+									"value": "2",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "sort_order",
+									"value": "asc",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "sort_column",
+									"value": "nama_kel",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "id_kec",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{_url}}/kelurahan",
+							"host": [
+								"{{_url}}"
+							],
+							"path": [
+								"kelurahan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Id Kelurahan",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nama_provinsi",
+									"value": "Bali",
+									"type": "text"
+								},
+								{
+									"key": "nama_city",
+									"value": "Kota Denpasar",
+									"type": "text"
+								},
+								{
+									"key": "nama_kec",
+									"value": "Denpasar Barat",
+									"type": "text"
+								},
+								{
+									"key": "nama_kel",
+									"value": "Dauh Puri",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{_url}}/get_id_kelurahan",
+							"host": [
+								"{{_url}}"
+							],
+							"path": [
+								"get_id_kelurahan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Ongkir",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_kel_origin",
+									"value": "44",
+									"type": "text"
+								},
+								{
+									"key": "id_kel_destination",
+									"value": "525",
+									"type": "text"
+								},
+								{
+									"key": "id_ac",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{_url}}/get_ongkirs",
+							"host": [
+								"{{_url}}"
+							],
+							"path": [
+								"get_ongkirs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaksi",
+			"item": [
+				{
+					"name": "History Transaksi",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_member",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "",
+									"description": "0/empty => All(default),\n1=>Waiting Payment,\n2=>Cancel payment,\n3=>Waiting Approve Payment,\n4=>Payment Complete\ndll(menyusul)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{_url}}/history_transaksi",
+							"host": [
+								"{{_url}}"
+							],
+							"path": [
+								"history_transaksi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Submit Carter",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_member",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "id_ac",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "lokasi_pickup",
+									"value": "muara karang",
+									"type": "text"
+								},
+								{
+									"key": "latitude_pickup",
+									"value": "-6.117202579023102",
+									"type": "text"
+								},
+								{
+									"key": "longitude_pickup",
+									"value": "106.78238942797437",
+									"type": "text"
+								},
+								{
+									"key": "id_kel_pickup",
+									"value": "83307",
+									"type": "text"
+								},
+								{
+									"key": "ttl_biaya_bm",
+									"value": "500000",
+									"type": "text"
+								},
+								{
+									"key": "sub_ttl",
+									"value": "500000",
+									"description": "total sebelum pengurangan potongan voucher",
+									"type": "text"
+								},
+								{
+									"key": "id_voucher",
+									"value": "1",
+									"description": "Draft",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "kode_voucher",
+									"value": "TESTVOUCHER",
+									"description": "Draft",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "pot_voucher",
+									"value": "70000",
+									"description": "Draft",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "ttl_biaya",
+									"value": "500000",
+									"description": "sub_ttl - pot_voucher",
+									"type": "text"
+								},
+								{
+									"key": "payment",
+									"value": "2",
+									"description": "1=>Transfer, 2=>Online payment, 3=>Kebut kredit",
+									"type": "text"
+								},
+								{
+									"key": "tgl_pickup[]",
+									"value": "01-11-2022",
+									"type": "text"
+								},
+								{
+									"key": "jam_pickup[]",
+									"value": "19.00",
+									"type": "text"
+								},
+								{
+									"key": "tgl_antar[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "jam_antar[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "tambahan_bm[]",
+									"value": "1 Jam",
+									"type": "text"
+								},
+								{
+									"key": "biaya_tambahan_bm[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "asuransi[]",
+									"value": "1",
+									"description": "di isi nilai id_asuransi dari response  API Get Asuransi",
+									"type": "text"
+								},
+								{
+									"key": "biaya_asuransi[]",
+									"value": "5",
+									"description": "di isi nilai biaya dari response API Get Asuransi",
+									"type": "text"
+								},
+								{
+									"key": "srt_jln_kembali[]",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "id_pricelist[]",
+									"value": "7",
+									"type": "text"
+								},
+								{
+									"key": "id_maping[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "hrg[]",
+									"value": "10000000",
+									"description": "total nilai barang yang akan dikirimkan(tolong dipastikan sebelunya ini dipakai buat apa)",
+									"type": "text"
+								},
+								{
+									"key": "nama_pemesan[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "hp_pemesan[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "perusahaan_pemesan[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "pic_gudang[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "jabatan_pemesan[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "hp_pic[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "alamat_pemesan[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "detail_lokasi_pemesan[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "pesan_utk_driver[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "nama_penerima[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "jabatan_penerima[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "perusahaan_penerima[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "hp_penerima[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "alamat_kirim[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "detail_lokasi_kirim[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "latitude_origin[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "longitude_origin[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "latitude_destination[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "longitude_destination[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "deskripsi_barang[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "qty[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "is_faktur[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "faktur_atas_nama[]",
+									"value": "penerima",
+									"type": "text"
+								},
+								{
+									"key": "faktur_nama[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "faktur_perusahaan[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "faktur_hp[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "faktur_alamat[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "faktur_kode_pos[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "faktur_catatan[]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "payment_id",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "img_srt_jln[]",
+									"type": "file",
+									"src": "/C:/Users/Yansen/Pictures/Baseus 100w/6.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{_url}}/submit_carter",
+							"host": [
+								"{{_url}}"
+							],
+							"path": [
+								"submit_carter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transaksi Detail",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_transaksi",
+									"value": "52",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{_url}}/transaksi_detail",
+							"host": [
+								"{{_url}}"
+							],
+							"path": [
+								"transaksi_detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload bukti transfer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_transaksi",
+									"value": " 1",
+									"type": "text"
+								},
+								{
+									"key": "img_bukti_transfer",
+									"type": "file",
+									"src": "/C:/Users/Yansen/Pictures/Baseus 100w/1.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{_url}}/upl_bukti_transfer",
+							"host": [
+								"{{_url}}"
+							],
+							"path": [
+								"upl_bukti_transfer"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get Banner",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "per_page",
+							"value": "10",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "keyword",
+							"value": "test",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "page_number",
+							"value": "2",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "sort_order",
+							"value": "ASC",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "sort_column",
+							"value": "priority_number",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "tipe",
+							"value": "",
+							"description": "1=>Home, 2=>cargo, 3=>kurir",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/banner",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"banner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Cargo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "per_page",
+							"value": "10",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "keyword",
+							"value": "test",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "page_number",
+							"value": "2",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "sort_order",
+							"value": "ASC",
+							"type": "text"
+						},
+						{
+							"key": "sort_column",
+							"value": "nama_cargo",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/ac",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"ac"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Cargo Detail",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id_ac",
+							"value": "1",
+							"description": "auto increment, input hide",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/detail_ac",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"detail_ac"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Asuransi",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "per_page",
+							"value": "10",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "keyword",
+							"value": "test",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "page_number",
+							"value": "2",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "sort_order",
+							"value": "ASC",
+							"type": "text"
+						},
+						{
+							"key": "sort_column",
+							"value": "nama_asuransi",
+							"type": "text"
+						},
+						{
+							"key": "id_ac",
+							"value": "4",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/asuransi",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"asuransi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Bongkar Muat",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "per_page",
+							"value": "10",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "keyword",
+							"value": "test",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "page_number",
+							"value": "2",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "sort_order",
+							"value": "ASC",
+							"type": "text"
+						},
+						{
+							"key": "sort_column",
+							"value": "id_bm",
+							"type": "text"
+						},
+						{
+							"key": "id_ac",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/bm",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"bm"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Outlets",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "per_page",
+							"value": "10",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "keyword",
+							"value": "test",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "page_number",
+							"value": "2",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "sort_order",
+							"value": "ASC",
+							"type": "text"
+						},
+						{
+							"key": "sort_column",
+							"value": "nama_outlet",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/outlets",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"outlets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Outlet Detail",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id_outlet",
+							"value": "1",
+							"description": "auto increment, input hide",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/detail_outlet",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"detail_outlet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FAQ Cust",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sort_order",
+							"value": "ASC",
+							"description": "DESC",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "sort_column",
+							"value": "question",
+							"description": "id_category",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/faq_cust",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"faq_cust"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FAQ Detail",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id_faq",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{_url}}/faq_detail",
+					"host": [
+						"{{_url}}"
+					],
+					"path": [
+						"faq_detail"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

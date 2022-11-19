@@ -93,9 +93,11 @@ $router->post('/simpan_banner', 'BannerController@store');
 $router->post('/del_banner', 'BannerController@proses_delete');
 
 $router->post('/drivers', 'DriverController@index');
+$router->post('/drivers/activation', 'DriverController@activation');
 $router->post('/register_driver', 'DriverController@reg');
 $router->post('/detail_driver', 'DriverController@detail');
 $router->post('/login_driver', 'DriverController@login');
+$router->post('/change_pass_driver', 'DriverController@change_pass');
 $router->post('/forgot_pass_driver', 'DriverController@forgot_pass');
 $router->post('/status_work', 'DriverController@status_work');
 $router->post('/ambil_job', 'DriverController@ambil_job');

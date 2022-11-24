@@ -133,6 +133,44 @@ class DriverController extends Controller
         return response($result);
     }
 
+    public function update_location(Request $request)
+    {
+        //update longitude and latitude driver
+        $id_driver = $request->id_driver;
+        $longitude = $request->longitude;
+        $latitude = $request->latitude;
+
+        $find = DB::table('driver')->where('id_driver', $id_driver)->first();
+
+        if ($find) {
+            $update = DB::table('driver')->where('id_driver', $id_driver)->update([
+                'longitude' => $longitude,
+                'latitude' => $latitude
+            ]);
+            if ($update) {
+                $result = array(
+                    'err_code' => '00',
+                    'err_msg' => 'ok',
+                    'data' => $find
+                );
+            } else {
+                $result = array(
+                    'err_code' => '04',
+                    'err_msg' => 'failed',
+                    'data' => null
+                );
+            }
+        } else {
+            $result = array(
+                'err_code' => '04',
+                'err_msg' => 'data not found',
+                'data' => null
+            );
+        }
+
+        return response($result);
+    }
+
     function reg(Request $request)
     {
         $ptn = "/^0/";

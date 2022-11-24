@@ -94,6 +94,7 @@ $router->post('/del_banner', 'BannerController@proses_delete');
 
 $router->post('/drivers', 'DriverController@index');
 $router->post('/drivers/activation', 'DriverController@activation');
+$router->post('/drivers/update_location', 'DriverController@update_location');
 $router->post('/register_driver', 'DriverController@reg');
 $router->post('/detail_driver', 'DriverController@detail');
 $router->post('/login_driver', 'DriverController@login');

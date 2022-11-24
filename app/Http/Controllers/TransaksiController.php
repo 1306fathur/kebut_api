@@ -401,6 +401,8 @@ class TransaksiController extends Controller
             'driver.nama as nama_driver',
             'driver.email as email_driver',
             'driver.phone as phone_driver',
+            'driver.latitude',
+            'driver.longitude',
         )
             ->where($where)
             ->leftJoin('members', 'members.id_member', '=', 'transaksi.id_member')
@@ -417,6 +419,12 @@ class TransaksiController extends Controller
         unset($_data->delivery_by);
         unset($_data->log_payment);
         $_data->list_pesanan = $list_pesanan;
+
+        if ($_data->latitude != null && $_data->longitude != null) {
+            $_data->location = 'https://www.google.com/maps/place/' . $_data->latitude . ',' . $_data->longitude;
+            unset($_data->latitude);
+            unset($_data->longitude);
+        }
         $result = array(
             'err_code' => '00',
             'err_msg' => 'ok',

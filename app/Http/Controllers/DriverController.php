@@ -736,6 +736,15 @@ class DriverController extends Controller
     function ambil_job(Request $request)
     {
         $tgl = date('Y-m-d H:i:s');
+        if (empty($request->id_driver)) {
+            $result = array(
+                'err_code' => '06',
+                'err_msg' => 'id_driver required',
+                'data' => null
+            );
+            return response($result);
+            return false;
+        }
         $id_driver = (int)$request->id_driver;
         $id_transaksi = (int)$request->id_transaksi > 0 ? (int)$request->id_transaksi : 0;
         $where = array('transaksi.status' => 4, 'id_driver' => null);
@@ -746,9 +755,76 @@ class DriverController extends Controller
             'data' => $id_driver
         );
         if ((int)$count > 0) {
+            $where = array('transaksi.id_transaksi' => $id_transaksi);
+            $transaction = DB::table('transaksi')->where($where)->first();
+            if ($transaction->id_driver != null) {
+                $result = array(
+                    'err_code' => '05',
+                    'err_msg' => 'Job already taken',
+                    'data' => null
+                );
+                return response($result);
+                return false;
+            }
             $data = array(
                 'id_driver' => $id_driver,
                 'status' => 5,
+                'tgl_diambil_driver' => $tgl,
+            );
+            DB::table('transaksi')->where('id_transaksi', $id_transaksi)->update($data);
+            $result = array(
+                'err_code' => '00',
+                'err_msg' => 'ok',
+                'data' => $data
+            );
+        }
+        return response($result);
+    }
+
+    function jemput_paket(Request $request)
+    {
+        $tgl = date('Y-m-d H:i:s');
+        $id_driver = (int)$request->id_driver;
+        $id_transaksi = (int)$request->id_transaksi > 0 ? (int)$request->id_transaksi : 0;
+        $where = array('transaksi.status' => 5);
+        $count = DB::table('transaksi')->where($where)->count();
+        $result = array(
+            'err_code' => '04',
+            'err_msg' => 'data not found',
+            'data' => $id_driver
+        );
+        if ((int)$count > 0) {
+            $data = array(
+                'id_driver' => $id_driver,
+                'status' => 8,
+                'tgl_diambil_driver' => $tgl,
+            );
+            DB::table('transaksi')->where('id_transaksi', $id_transaksi)->update($data);
+            $result = array(
+                'err_code' => '00',
+                'err_msg' => 'ok',
+                'data' => $data
+            );
+        }
+        return response($result);
+    }
+
+    function dalam_pengantaran(Request $request)
+    {
+        $tgl = date('Y-m-d H:i:s');
+        $id_driver = (int)$request->id_driver;
+        $id_transaksi = (int)$request->id_transaksi > 0 ? (int)$request->id_transaksi : 0;
+        $where = array('transaksi.status' => 6);
+        $count = DB::table('transaksi')->where($where)->count();
+        $result = array(
+            'err_code' => '04',
+            'err_msg' => 'data not found',
+            'data' => $id_driver
+        );
+        if ((int)$count > 0) {
+            $data = array(
+                'id_driver' => $id_driver,
+                'status' => 9,
                 'tgl_diambil_driver' => $tgl,
             );
             DB::table('transaksi')->where('id_transaksi', $id_transaksi)->update($data);
@@ -767,7 +843,7 @@ class DriverController extends Controller
         $id_driver = (int)$request->id_driver;
         $id_transaksi = (int)$request->id_transaksi > 0 ? (int)$request->id_transaksi : 0;
         $path_img = $request->file("img");
-        $where = array('transaksi.status' => 5, 'id_driver' => $id_driver, 'id_transaksi' => $id_transaksi);
+        $where = array('transaksi.status' => 8, 'id_driver' => $id_driver, 'id_transaksi' => $id_transaksi);
         $count = DB::table('transaksi')->where($where)->count();
         $result = array(
             'err_code' => '04',
@@ -827,7 +903,7 @@ class DriverController extends Controller
         $id_driver = (int)$request->id_driver;
         $id_transaksi = (int)$request->id_transaksi > 0 ? (int)$request->id_transaksi : 0;
         $path_img = $request->file("img");
-        $where = array('transaksi.status' => 6, 'id_driver' => $id_driver, 'id_transaksi' => $id_transaksi);
+        $where = array('transaksi.status' => 9, 'id_driver' => $id_driver, 'id_transaksi' => $id_transaksi);
         $count = DB::table('transaksi')->where($where)->count();
         $result = array(
             'err_code' => '04',
@@ -906,9 +982,16 @@ class DriverController extends Controller
             'driver.nama as nama_driver',
             'driver.email as email_driver',
             'driver.phone as phone_driver',
+            'transaksi_detail.nama_penerima',
+            'transaksi_detail.hp_penerima',
+            'transaksi_detail.tgl_pickup',
+            'transaksi_detail.tgl_antar',
+            'transaksi_detail.alamat_kirim as alamat_antar',
+            'transaksi_detail.alamat_pemesan as alamat_pickup',
         )
             ->where($where)->leftJoin('members', 'members.id_member', '=', 'transaksi.id_member')
             ->leftJoin('driver', 'driver.id_driver', '=', 'transaksi.id_driver')
+            ->leftJoin('transaksi_detail', 'transaksi_detail.id_trans', '=', 'transaksi.id_transaksi')
             ->orderByRaw($sort_column)->get();
         $result = array(
             'err_code' => '04',

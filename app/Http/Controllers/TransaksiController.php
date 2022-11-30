@@ -117,10 +117,16 @@ class TransaksiController extends Controller
         }
         $count = 0;
         $data = [];
-        $sql = "SELECT transaksi.*, (6371 * acos (cos(radians($lat)) * cos(radians(transaksi.latitude_pickup)) *
+        $sql = "SELECT transaksi_detail.nama_penerima, transaksi_detail.hp_penerima, transaksi_detail.tgl_pickup,
+                transaksi_detail.tgl_antar, transaksi_detail.alamat_kirim as alamat_antar, transaksi_detail.alamat_pemesan as alamat_pickup,
+                transaksi.*, (6371 * acos (cos(radians($lat)) * cos(radians(transaksi.latitude_pickup)) *
                 cos(radians(transaksi.longitude_pickup) - radians($lon)) + sin(radians($lat)) *
                 sin(radians(transaksi.latitude_pickup)))) AS distance, members.nama as nama_member, members.email, members.phone as phone_member
-                FROM transaksi left join members on members.id_member = transaksi.id_member where transaksi.status = 4 and id_driver is null HAVING distance <= 10 order by distance ASC";
+                FROM transaksi
+                left join transaksi_detail on transaksi_detail.id_trans = transaksi.id_transaksi
+                left join members on members.id_member = transaksi.id_member
+                where transaksi.status = 4 and id_driver is null
+                HAVING distance <= 10 order by distance ASC";
         $_data = DB::select(DB::raw($sql));
         $count = count($_data);
         $result = array(

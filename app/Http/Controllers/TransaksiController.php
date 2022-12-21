@@ -159,6 +159,11 @@ class TransaksiController extends Controller
         $tgl = date('Y-m-d H:i:s');
         $result = array();
 
+        $free_bongkar_muat = $request->has('free_bongkar_muat') ? $request->free_bongkar_muat : 0;
+        $tambahan_bongkar_muat = $request->has('tambahan_bongkar_muat') ? $request->tambahan_bongkar_muat : 0;
+        if ($tambahan_bongkar_muat != 0) {
+            $free_bongkar_muat += $tambahan_bongkar_muat;
+        }
         $id_member = (int)$request->id_member > 0 ? Helper::last_login((int)$request->id_member) : 0;
         $id_ac = (int)$request->id_ac > 0 ? (int)$request->id_ac : 0;
         $lokasi_pickup = $request->has('lokasi_pickup') ? $request->lokasi_pickup : '';
@@ -226,6 +231,7 @@ class TransaksiController extends Controller
             'ttl_biaya' => $ttl_biaya,
             'status' => $status,
             'created_at' => $tgl,
+            'free_bongkar_muat' => $free_bongkar_muat,
         );
         $id = 0;
         $id = DB::table('transaksi')->insertGetId($dt_trans, "id_transaksi");
@@ -413,6 +419,21 @@ class TransaksiController extends Controller
             ->where($where)
             ->leftJoin('members', 'members.id_member', '=', 'transaksi.id_member')
             ->leftJoin('driver', 'driver.id_driver', '=', 'transaksi.id_driver')->first();
+            if ($_data->status == 9) {
+                $start_bm = $_data->start_bm;
+                $free_bongkar_muat = $_data->free_bongkar_muat;
+                //start_bm + free_bongkar_muat in hour
+                $end_bm = date('Y-m-d H:i:s', strtotime($start_bm . ' + ' . $free_bongkar_muat . ' hours'));
+                $now = date('Y-m-d H:i:s');
+                //diff end_bm - now
+                $diff = strtotime($end_bm) - strtotime($now);
+                $hours = floor($diff / (60 * 60));
+                $minutes = floor(($diff - $hours * 60 * 60) / 60);
+                $seconds = $diff - $hours * 60 * 60 - $minutes * 60;
+                //merge hours, minutes, seconds to datetime
+                $timer = $hours . ':' . $minutes . ':' . $seconds;
+                $_data->timer = $timer;
+            }
         $cnt_details = DB::table('transaksi_detail')->where(array('id_trans' => $id_transaksi))->count();
         $list_pesanan = null;
         if ($cnt_details > 0) {

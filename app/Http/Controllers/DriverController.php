@@ -837,6 +837,37 @@ class DriverController extends Controller
         return response($result);
     }
 
+    function bongkar_muat(Request $request)
+    {
+        $tgl = date('Y-m-d H:i:s');
+        $id_driver = (int)$request->id_driver;
+        $id_transaksi = (int)$request->id_transaksi > 0 ? (int)$request->id_transaksi : 0;
+        $where = array('transaksi.status' => 9);
+        $count = DB::table('transaksi')->where($where)->count();
+        $result = array(
+            'err_code' => '04',
+            'err_msg' => 'data not found',
+            'data' => $id_driver
+        );
+        if ((int)$count > 0) {
+            $trans = DB::table('transaksi')->where('id_transaksi', $id_transaksi)->first();
+            $start_bm = date('Y-m-d H:i:s');
+            $data = array(
+                'id_driver' => $id_driver,
+                'status' => 10,
+                'tgl_diambil_driver' => $tgl,
+                'start_bm' => $start_bm,
+            );
+            DB::table('transaksi')->where('id_transaksi', $id_transaksi)->update($data);
+            $result = array(
+                'err_code' => '00',
+                'err_msg' => 'ok',
+                'data' => $data
+            );
+        }
+        return response($result);
+    }
+
     function barang_diambil(Request $request)
     {
         $tgl = date('Y-m-d H:i:s');
@@ -903,7 +934,7 @@ class DriverController extends Controller
         $id_driver = (int)$request->id_driver;
         $id_transaksi = (int)$request->id_transaksi > 0 ? (int)$request->id_transaksi : 0;
         $path_img = $request->file("img");
-        $where = array('transaksi.status' => 9, 'id_driver' => $id_driver, 'id_transaksi' => $id_transaksi);
+        $where = array('transaksi.status' => 10, 'id_driver' => $id_driver, 'id_transaksi' => $id_transaksi);
         $count = DB::table('transaksi')->where($where)->count();
         $result = array(
             'err_code' => '04',
@@ -914,6 +945,7 @@ class DriverController extends Controller
             $data = array(
                 'status' => 7,
                 'tgl_barang_diserahkan' => $tgl,
+                'end_bm' => $tgl,
             );
             if (!empty($path_img)) {
                 $randomletter = substr(str_shuffle("kebutKEBUT"), 0, 5);

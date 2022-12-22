@@ -112,7 +112,8 @@ class CargoController extends Controller
             'volume'               => $request->has('volume') && !empty($request->volume) ? $request->volume : '',
             'kap'               => $request->has('kap') && !empty($request->kap) ? $request->kap : '',
             'golongan_tol'       => $request->has('golongan_tol') && !empty($request->golongan_tol) ? $request->golongan_tol : '',
-            'golongan_ferry'       => $request->has('golongan_ferry') && !empty($request->golongan_ferry) ? $request->golongan_ferry : ''
+            'golongan_ferry'       => $request->has('golongan_ferry') && !empty($request->golongan_ferry) ? $request->golongan_ferry : '',
+            'free_bongkar_muat'       => $request->has('free_bongkar_muat') && !empty($request->free_bongkar_muat) ? $request->free_bongkar_muat : '',
         );
 
         if (!empty($path_img)) {

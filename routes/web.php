@@ -103,10 +103,11 @@ $router->post('/forgot_pass_driver', 'DriverController@forgot_pass');
 $router->post('/status_work', 'DriverController@status_work');
 $router->post('/ambil_job', 'DriverController@ambil_job');
 $router->post('/barang_diambil', 'DriverController@barang_diambil');
-$router->post('/barang_diserahkan', 'DriverController@barang_diserahkan');
 $router->post('/history_trans_driver', 'DriverController@history_transaksi');
 $router->post('/jemput_paket', 'DriverController@jemput_paket');
 $router->post('/dalam_pengantaran', 'DriverController@dalam_pengantaran');
+$router->post('/bongkar_muat', 'DriverController@bongkar_muat');
+$router->post('/barang_diserahkan', 'DriverController@barang_diserahkan');
 
 $router->post('/master_data', 'MasterController@index');
 $router->post('/upd_setting', 'MasterController@upd_setting');

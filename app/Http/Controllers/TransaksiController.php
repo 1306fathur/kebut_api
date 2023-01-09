@@ -419,7 +419,7 @@ class TransaksiController extends Controller
             ->where($where)
             ->leftJoin('members', 'members.id_member', '=', 'transaksi.id_member')
             ->leftJoin('driver', 'driver.id_driver', '=', 'transaksi.id_driver')->first();
-            if ($_data->status == 9) {
+            if ($_data->status == 10) {
                 $start_bm = $_data->start_bm;
                 $free_bongkar_muat = $_data->free_bongkar_muat;
                 //start_bm + free_bongkar_muat in hour

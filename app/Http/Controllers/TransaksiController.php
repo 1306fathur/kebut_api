@@ -431,7 +431,7 @@ class TransaksiController extends Controller
                 $minutes = floor(($diff - $hours * 60 * 60) / 60);
                 $seconds = $diff - $hours * 60 * 60 - $minutes * 60;
                 //merge hours, minutes, seconds to datetime
-                $timer = $hours . ':' . $minutes . ':' . $seconds;
+                $timer = date('H:i:s', mktime($hours, $minutes, $seconds));
                 $_data->timer = $timer;
             }
         $cnt_details = DB::table('transaksi_detail')->where(array('id_trans' => $id_transaksi))->count();

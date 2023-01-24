@@ -190,3 +190,5 @@ $router->post('/submit_carter', 'TransaksiController@store');
 
 $router->post('/ipay_redirect', 'IpayController@redirect');
 $router->post('/ipay_notif', 'IpayController@notify');
+
+$router->post('/import/ongkir', 'ImportController@ongkir');
